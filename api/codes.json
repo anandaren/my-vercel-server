@@ -22,8 +22,8 @@
       "expiresAt": "2025-11-13T01:23:09.128Z",
       "active": true,
       "createdAt": "2025-10-14T01:23:09.128Z",
-      "boundDeviceId": "device-cklu-004",
-      "boundAt": "2025-10-14T14:23:44.308Z"
+      "boundDeviceId": null,
+      "boundAt": null
     },
     {
       "code": "VIP-I4EOBG",
