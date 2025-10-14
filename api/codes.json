@@ -13,8 +13,8 @@
       "expiresAt": "2025-11-13T01:23:09.128Z",
       "active": true,
       "createdAt": "2025-10-14T01:23:09.128Z",
-      "boundDeviceId": "device-cklu-003",
-      "boundAt": "2025-10-14T14:21:18.950Z"
+      "boundDeviceId": null,
+      "boundAt": null
     },
     {
       "code": "VIP-69OW55",
