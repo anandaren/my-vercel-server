@@ -51,7 +51,9 @@
       "note": "VIP激活码-2025/10/14",
       "expiresAt": "2026-10-14T01:23:23.271Z",
       "active": true,
-      "createdAt": "2025-10-14T01:23:23.271Z"
+      "createdAt": "2025-10-14T01:23:23.271Z",
+      "boundDeviceId": "dev-j0112hgeiol1760374067571",
+      "boundAt": "2025-10-14T14:29:25.173Z"
     },
     {
       "code": "VIP-Q5KWGA",
