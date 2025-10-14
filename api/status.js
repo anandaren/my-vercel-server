@@ -15,6 +15,9 @@ module.exports = async function handler(req, res) {
     }
     
     try {
+        // 禁止缓存，确保监控与管理页拿到最新写回
+        res.setHeader('Cache-Control', 'no-store, max-age=0');
+        res.setHeader('Pragma', 'no-cache');
         const { codes, total, tried } = readCodesWithDebug();
         return res.status(200).json({ ok: true, total, codes, tried });
     } catch (err) {
