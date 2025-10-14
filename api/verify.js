@@ -128,13 +128,14 @@ async function readBody(req) {
 async function writeBackBindingToGitHub({ code, deviceId, boundAt }) {
     // 必需环境变量
     const token = process.env.GITHUB_TOKEN;
-    const owner = process.env.GITHUB_REPO_OWNER;
-    const repo = process.env.GITHUB_REPO_NAME;
-    const filePath = process.env.GITHUB_FILE_PATH || 'vercel-license-server/api/codes.json';
+    // 与 Vercel 中配置的变量名对齐
+    const owner = process.env.GITHUB_OWNER || process.env.GITHUB_REPO_OWNER;
+    const repo = process.env.GITHUB_REPO || process.env.GITHUB_REPO_NAME;
+    const filePath = process.env.CODES_FILE_PATH || process.env.GITHUB_FILE_PATH || 'api/codes.json';
     const branch = process.env.GITHUB_BRANCH || 'main';
 
     if (!token || !owner || !repo) {
-        return { updated: false, error: '缺少 GITHUB_TOKEN/GITHUB_REPO_OWNER/GITHUB_REPO_NAME 环境变量' };
+        return { updated: false, error: `缺少必要环境变量: token=${!!token}, owner=${owner||''}, repo=${repo||''}` };
     }
 
     try {
@@ -149,7 +150,7 @@ async function writeBackBindingToGitHub({ code, deviceId, boundAt }) {
         });
         if (!getResp.ok) {
             const t = await getResp.text();
-            return { updated: false, error: `获取文件失败: ${getResp.status} ${getResp.statusText} ${t}` };
+            return { updated: false, error: `获取文件失败: ${getResp.status} ${getResp.statusText}; path=${filePath}; branch=${branch}; body=${t}` };
         }
         const getJson = await getResp.json();
         const sha = getJson.sha;
@@ -190,7 +191,7 @@ async function writeBackBindingToGitHub({ code, deviceId, boundAt }) {
         });
         if (!putResp.ok) {
             const t = await putResp.text();
-            return { updated: false, error: `写回失败: ${putResp.status} ${putResp.statusText} ${t}` };
+            return { updated: false, error: `写回失败: ${putResp.status} ${putResp.statusText}; path=${filePath}; branch=${branch}; body=${t}` };
         }
 
         return { updated: true };
