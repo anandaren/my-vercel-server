@@ -12,7 +12,9 @@
       "note": "VIP激活码-2025/10/14",
       "expiresAt": "2025-11-13T01:23:09.128Z",
       "active": true,
-      "createdAt": "2025-10-14T01:23:09.128Z"
+      "createdAt": "2025-10-14T01:23:09.128Z",
+      "boundDeviceId": "device-cklu-003",
+      "boundAt": "2025-10-14T14:20:47.293Z"
     },
     {
       "code": "VIP-69OW55",
