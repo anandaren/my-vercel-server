@@ -141,13 +141,16 @@ async function writeBackBindingToGitHub({ code, deviceId, boundAt }) {
     try {
         // 1) 获取当前文件（拿到 sha）
         const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(filePath)}?ref=${encodeURIComponent(branch)}`;
+        console.log('[verify] github.get start', { path: filePath, branch });
         const getResp = await fetch(getUrl, {
             headers: {
-                'Authorization': `Bearer ${token}`,
+                // GitHub 接受 "token" 或 "Bearer"；统一用 token 以提升兼容性
+                'Authorization': `token ${token}`,
                 'Accept': 'application/vnd.github+json',
                 'User-Agent': 'temu-license-server'
             }
         });
+        console.log('[verify] github.get resp', getResp.status, getResp.statusText);
         if (!getResp.ok) {
             const t = await getResp.text();
             return { updated: false, error: `获取文件失败: ${getResp.status} ${getResp.statusText}; path=${filePath}; branch=${branch}; body=${t}` };
@@ -174,10 +177,11 @@ async function writeBackBindingToGitHub({ code, deviceId, boundAt }) {
         // 3) 提交更新
         const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(filePath)}`;
         const commitMessage = `chore: bind device for ${code} at ${boundAt}`;
+        console.log('[verify] github.put start', { path: filePath, branch, code });
         const putResp = await fetch(putUrl, {
             method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `token ${token}`,
                 'Accept': 'application/vnd.github+json',
                 'User-Agent': 'temu-license-server',
                 'Content-Type': 'application/json'
@@ -189,11 +193,14 @@ async function writeBackBindingToGitHub({ code, deviceId, boundAt }) {
                 branch
             })
         });
+        console.log('[verify] github.put resp', putResp.status, putResp.statusText);
         if (!putResp.ok) {
             const t = await putResp.text();
             return { updated: false, error: `写回失败: ${putResp.status} ${putResp.statusText}; path=${filePath}; branch=${branch}; body=${t}` };
         }
-
+        let putJson = {};
+        try { putJson = await putResp.json(); } catch {}
+        console.log('[verify] github.put ok', { path: filePath, commitSha: putJson && putJson.commit && putJson.commit.sha });
         return { updated: true };
     } catch (e) {
         return { updated: false, error: String(e && e.message || e) };
