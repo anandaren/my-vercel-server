@@ -5,7 +5,9 @@
       "note": "VIP激活码-2025/10/14",
       "expiresAt": "2025-11-13T01:23:09.128Z",
       "active": true,
-      "createdAt": "2025-10-14T01:23:09.128Z"
+      "createdAt": "2025-10-14T01:23:09.128Z",
+      "boundDeviceId": "dev-lvo5zhh6ay1760577067062",
+      "boundAt": "2025-10-16T01:11:08.980Z"
     },
     {
       "code": "VIP-XW2S3N",
