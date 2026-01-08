@@ -32,7 +32,9 @@
       "note": "VIP激活码-2025/10/14",
       "expiresAt": "2035-11-13T01:23:09.128Z",
       "active": true,
-      "createdAt": "2025-10-14T01:23:09.128Z"
+      "createdAt": "2025-10-14T01:23:09.128Z",
+      "boundDeviceId": "dev-naj6h0sk5f1767835417368",
+      "boundAt": "2026-01-08T01:24:12.975Z"
     },
     {
       "code": "VIP-DXTD17",
